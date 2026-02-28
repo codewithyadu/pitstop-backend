@@ -11,8 +11,8 @@ data class RaceWeekend(
     val circuitName: String,
     val country: String,
     val locality: String,
-    val lat: String,
-    val long: String,
+    val lat: Double,
+    val long: Double,
     val sessions: List<Session>,
     val isSprintWeekend: Boolean
 )
