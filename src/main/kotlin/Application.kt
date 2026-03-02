@@ -29,11 +29,13 @@ fun Application.module() {
         }
     }
 
-    val jolpicaClient = JolpicaClient(httpClient)
-    val scheduleService = ScheduleService(jolpicaClient)
 
     configureMonitoring()
     configureSerialization()
     configureRouting()
+
+    // Schedule
+    val jolpicaClient = JolpicaClient(httpClient)
+    val scheduleService = ScheduleService(jolpicaClient)
     configureScheduleRoutes(scheduleService)
 }
