@@ -1,5 +1,6 @@
 package com.pitstop.features.feature
 
+import com.pitstop.domain.model.ApiResponse
 import com.pitstop.domain.model.PitstopResult
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
@@ -14,21 +15,36 @@ fun Application.configureScheduleRoutes(service: ScheduleService) {
 
             get("/schedule") {
                 val season = call.request.queryParameters["season"] ?: "2026"
+
                 when (val result = service.getFullSchedule(season)) {
-                    is PitstopResult.Success -> call.respond(result.data)
+                    is PitstopResult.Success -> call.respond(
+                        HttpStatusCode.OK,
+                        ApiResponse.success(result.data)
+                    )
+
                     is PitstopResult.Error -> call.respond(
                         HttpStatusCode.InternalServerError,
-                        mapOf("error" to result.message)
+                        ApiResponse.error<Nothing>(
+                            code = result.code,
+                            message = result.message
+                        )
                     )
                 }
             }
 
             get("/schedule/next") {
                 when (val result = service.getNextRace()) {
-                    is PitstopResult.Success -> call.respond(result.data)
+                    is PitstopResult.Success -> call.respond(
+                        HttpStatusCode.OK,
+                        ApiResponse.success(result.data)
+                    )
+
                     is PitstopResult.Error -> call.respond(
                         HttpStatusCode.NotFound,
-                        mapOf("error" to result.message)
+                        ApiResponse.error<Nothing>(
+                            code = result.code,
+                            message = result.message
+                        )
                     )
                 }
             }

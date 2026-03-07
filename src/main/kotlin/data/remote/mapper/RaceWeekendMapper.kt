@@ -8,16 +8,16 @@ import com.pitstop.domain.model.SessionType
 fun RaceDto.toRaceWeekend(totalRounds: Int): RaceWeekend {
     val sessions = buildList {
         firstPractice?.let { value ->
-            add(Session(type = SessionType.PRACTISE_1, date = value.date, time = value.time.orEmpty()))
+            add(Session(type = SessionType.PRACTICE_1, date = value.date, time = value.time.orEmpty()))
         }
         secondPractice?.let { value ->
-            add(Session(type = SessionType.PRACTISE_2, date = value.date, time = value.time.orEmpty()))
+            add(Session(type = SessionType.PRACTICE_2, date = value.date, time = value.time.orEmpty()))
         }
         sprintQualifying?.let { value ->
             add(Session(type = SessionType.SPRINT_QUALIFYING, date = value.date, time = value.time.orEmpty()))
         }
         thirdPractice?.let { value ->
-            add(Session(type = SessionType.PRACTISE_3, date = value.date, time = value.time.orEmpty()))
+            add(Session(type = SessionType.PRACTICE_3, date = value.date, time = value.time.orEmpty()))
         }
         sprint?.let { value ->
             add(Session(type = SessionType.SPRINT, date = value.date, time = value.time.orEmpty()))
@@ -37,7 +37,7 @@ fun RaceDto.toRaceWeekend(totalRounds: Int): RaceWeekend {
         country = circuit.location.country,
         locality = circuit.location.locality,
         lat = circuit.location.lat.toDouble(),
-        long = circuit.location.long.toDouble(),
+        lng = circuit.location.long.toDouble(),
         sessions = sessions,
         isSprintWeekend = sprint != null
     )

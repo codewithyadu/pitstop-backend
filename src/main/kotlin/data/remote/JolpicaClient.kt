@@ -2,6 +2,7 @@ package com.pitstop.data.remote
 
 import com.pitstop.data.remote.dto.JolpicaScheduleResponse
 import com.pitstop.data.remote.mapper.toRaceWeekend
+import com.pitstop.domain.model.ErrorCode
 import com.pitstop.domain.model.PitstopResult
 import com.pitstop.domain.model.RaceWeekend
 import io.ktor.client.HttpClient
@@ -35,6 +36,7 @@ class JolpicaClient(private val httpClient: HttpClient) {
             logger.error("Failed to fetch season schedule for $season", e)
             PitstopResult.Error(
                 message = "Failed to fetch schedule from Jolpica",
+                code = ErrorCode.SCHEDULE_FETCH_FAILED,
                 cause = e
             )
         }

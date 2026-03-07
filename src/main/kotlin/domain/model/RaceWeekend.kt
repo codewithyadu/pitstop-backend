@@ -12,7 +12,7 @@ data class RaceWeekend(
     val country: String,
     val locality: String,
     val lat: Double,
-    val long: Double,
+    val lng: Double,
     val sessions: List<Session>,
     val isSprintWeekend: Boolean
 )
@@ -25,9 +25,9 @@ data class Session(
 )
 
 enum class SessionType {
-    PRACTISE_1,
-    PRACTISE_2,
-    PRACTISE_3,
+    PRACTICE_1,
+    PRACTICE_2,
+    PRACTICE_3,
     SPRINT_QUALIFYING,
     SPRINT,
     QUALIFYING,

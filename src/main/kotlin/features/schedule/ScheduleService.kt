@@ -1,6 +1,7 @@
 package com.pitstop.features.feature
 
 import com.pitstop.data.remote.JolpicaClient
+import com.pitstop.domain.model.ErrorCode
 import com.pitstop.domain.model.PitstopResult
 import com.pitstop.domain.model.RaceWeekend
 import java.time.LocalDate
@@ -23,7 +24,10 @@ class ScheduleService(private val jolpicaClient: JolpicaClient) {
                 if (nextRace != null) {
                     PitstopResult.Success(nextRace)
                 } else {
-                    PitstopResult.Error("No upcoming race found for the season $season")
+                    PitstopResult.Error(
+                        message = "No upcoming race found for the season $season",
+                        code = ErrorCode.NEXT_RACE_NOT_FOUND
+                    )
                 }
             }
 
